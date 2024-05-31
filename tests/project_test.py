@@ -19,3 +19,7 @@ def test_project():
 
     assert isinstance(project.info, Info)
     assert isinstance(project.compose, ComposeYaml)
+    for name, service in project.compose.services.items():
+        assert name == "postgres"
+        assert service.image == "postgres:latest"
+        assert service.env_file == ["./postgres.env"]

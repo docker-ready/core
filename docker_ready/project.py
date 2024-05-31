@@ -1,5 +1,7 @@
 from pathlib import Path
+from typing import Annotated, Any
 
+from pydantic.fields import Field
 from pydantic.main import BaseModel
 from pydantic.networks import HttpUrl
 from pydantic_yaml import parse_yaml_file_as
@@ -15,17 +17,26 @@ class Info(BaseModel):
 
 class ProjectYaml(BaseModel):
     info: Info
-    env_files: dict[str, dict[str, str]]
+    env_files: dict[str, dict[str, Any]]
+
+
+class Network(BaseModel):
+    name: str
+    driver: str
 
 
 class Service(BaseModel):
     image: str
-
+    container_name: Annotated[str | None, Field(default=None)]
     env_file: list
+    networks: Annotated[list[str] | None, Field(default=None)]
+    ports: Annotated[list[str] | None, Field(default=None)]
+    volumes: Annotated[list[str] | None, Field(default=None)]
 
 
 class ComposeYaml(BaseModel):
     name: str
+    networks: Annotated[dict[str, Network] | None, Field(default=None)]
     services: dict[str, Service]
 
 

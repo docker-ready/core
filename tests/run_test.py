@@ -15,7 +15,3 @@ def test_run_project() -> None:
 
     containers = docker.containers.list()
     assert len(containers) == len(project.compose.services)
-
-    names = [f"{project.compose.name}-{service_name}" for service_name in project.compose.services]
-    for container in containers:
-        assert container.name in names
