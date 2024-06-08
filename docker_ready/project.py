@@ -7,6 +7,8 @@ from pydantic.main import BaseModel
 from pydantic.networks import HttpUrl
 from pydantic_yaml import parse_yaml_file_as
 
+from docker_ready.utils.constants import Dirs
+
 
 class Info(BaseModel):
     full_name: str
@@ -44,13 +46,7 @@ class ComposeYaml(BaseModel):
 class Project:
     def __init__(self, directory: Path, containers: list[Container] | None = None) -> None:
         self.root_dir = directory
-        self.user_dir = (
-            Path("~")
-            .expanduser()
-            .joinpath(".config")
-            .joinpath("docker-ready")
-            .joinpath(directory.name)
-        )
+        self.user_dir = Dirs.config.joinpath(directory.name)
 
         if self.user_dir.exists():
             directory = self.user_dir

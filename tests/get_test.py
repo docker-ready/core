@@ -18,7 +18,9 @@ def test_get_project_by_name() -> None:
     assert project.info.full_name == "PostgreSQL"
 
 
-@pytest.mark.usefixtures("clear_config_fixture", "run_postgres_project_fixture")
+@pytest.mark.usefixtures(
+    "clear_config_fixture", "remove_postgres_project_fixture", "run_postgres_project_fixture"
+)
 def test_get_running_projects() -> None:
     projects = get_running_projects()
     assert isinstance(projects, list)

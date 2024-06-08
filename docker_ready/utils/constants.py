@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import NamedTuple
 
 
@@ -5,4 +6,8 @@ class Labels(NamedTuple):
     project = "docker-ready.project"
 
 
-__all__ = ["Labels"]
+class Dirs(NamedTuple):
+    config = Path("~").expanduser().joinpath(".config").joinpath("docker-ready")
+
+
+__all__ = ["Labels", "Dirs"]

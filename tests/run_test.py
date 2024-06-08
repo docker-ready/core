@@ -1,13 +1,11 @@
-from docker import from_env
+import pytest
 
-from docker_ready import run_project
-from docker_ready.get import get_project_by_name
-from docker_ready.project import Project
-
-docker = from_env()
+from docker_ready import Project, get_project_by_name, run_project
+from docker_ready.utils.tools import docker
 
 
-def test_run_project(clear_config_fixture: None) -> None:
+@pytest.mark.usefixtures("clear_config_fixture", "remove_postgres_project_fixture")
+def test_run_project() -> None:
     project = get_project_by_name(name="postgres")
     assert isinstance(project, Project)
 
