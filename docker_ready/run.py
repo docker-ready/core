@@ -1,12 +1,11 @@
 import shutil
 
-from docker import from_env
 from docker.models.networks import Network
 from dotenv import dotenv_values
 
 from docker_ready.project import ComposeYaml, Project, Service
-
-docker = from_env()
+from docker_ready.utils.constants import Labels
+from docker_ready.utils.tools import docker
 
 
 def run_project(project: Project) -> None:
@@ -58,6 +57,7 @@ def _run_service(
     container = docker.containers.run(
         image=service.image,
         environment=_environment(s=service, p=project),
+        labels=_labels(p=project),
         name=_name(s=service, p=project),
         ports=_ports(s=service),
         volumes=service.volumes,
@@ -72,6 +72,10 @@ def _run_service(
 def _environment(s: Service, p: Project) -> dict[str, str | None] | None:
     if s.env_file:
         return dotenv_values(p.user_dir.joinpath(s.env_file[0]))
+
+
+def _labels(p: Project) -> dict[str, str]:
+    return {Labels.project: p.compose.name}
 
 
 def _name(s: Service, p: Project) -> str:

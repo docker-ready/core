@@ -7,7 +7,7 @@ from docker_ready.project import Project
 docker = from_env()
 
 
-def test_run_project() -> None:
+def test_run_project(clear_config_fixture: None) -> None:
     project = get_project_by_name(name="postgres")
     assert isinstance(project, Project)
 

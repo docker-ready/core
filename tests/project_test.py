@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from docker_ready.project import ComposeYaml, Info, Project
 
 POSTGRES_PROJECT_DIR = (
@@ -7,6 +9,7 @@ POSTGRES_PROJECT_DIR = (
 )
 
 
+@pytest.mark.usefixtures("clear_config_fixture")
 def test_project():
     project = Project(directory=POSTGRES_PROJECT_DIR)
     assert isinstance(project, Project)

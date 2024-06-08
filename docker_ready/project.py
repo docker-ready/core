@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Annotated, Any
 
+from docker.models.containers import Container
 from pydantic.fields import Field
 from pydantic.main import BaseModel
 from pydantic.networks import HttpUrl
@@ -41,7 +42,7 @@ class ComposeYaml(BaseModel):
 
 
 class Project:
-    def __init__(self, directory: Path) -> None:
+    def __init__(self, directory: Path, containers: list[Container] | None = None) -> None:
         self.root_dir = directory
         self.user_dir = (
             Path("~")
@@ -56,6 +57,7 @@ class Project:
 
         self._project(directory=directory)
         self._compose(directory=directory)
+        self.containers = containers
 
     def _project(self, directory: Path) -> None:
         self.project_yaml_file = directory.joinpath("project.yaml")
