@@ -57,6 +57,7 @@ def _run_service(
     container = docker.containers.run(
         image=service.image,
         environment=_environment(s=service, p=project),
+        hostname=service.hostname,
         labels=_labels(p=project),
         name=_name(s=service, p=project),
         ports=_ports(s=service),

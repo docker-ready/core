@@ -32,6 +32,7 @@ class Service(BaseModel):
     image: str
     container_name: Annotated[str | None, Field(default=None)]
     env_file: list
+    hostname: Annotated[str | None, Field(default=None)]
     networks: Annotated[list[str] | None, Field(default=None)]
     ports: Annotated[list[str] | None, Field(default=None)]
     volumes: Annotated[list[str] | None, Field(default=None)]

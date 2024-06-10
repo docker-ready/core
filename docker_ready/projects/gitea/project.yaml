@@ -7,7 +7,7 @@ info:
 
 env_files:
   postgres:
-    POSTGRES_DB: docker-ready 
+    POSTGRES_DB: docker-ready
     POSTGRES_USER: docker-ready
     POSTGRES_PASSWORD: docker-ready
   gitea:

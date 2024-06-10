@@ -1,0 +1,34 @@
+name: metabase
+
+networks:
+  metabase:
+    name: metabase
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: metabase-postgres
+
+    env_file:
+      - ./postgres.env
+    
+    hostname: postgres
+    networks:
+      - metabase
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    
+    env_file:
+      - ./metabase.env
+    
+    hostname: metabase
+    networks:
+      - metabase
+    ports:
+      - "3000:3000"
+    
+    volumes:
+    - /dev/urandom:/dev/random:ro

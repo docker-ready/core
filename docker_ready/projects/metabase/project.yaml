@@ -1,0 +1,19 @@
+info:
+  full_name: Metabase
+  description: Metabase is an open-source business intelligence platform. You can use Metabase to ask questions about your data, or embed Metabase in your app to let your customers explore their data on their own.
+  site_url: https://www.metabase.com/
+  repo_url: https://github.com/metabase/metabase
+  container_registry_url: https://hub.docker.com/r/metabase/metabase
+
+env_files:
+  postgres:
+    POSTGRES_DB: docker-ready
+    POSTGRES_USER: docker-ready
+    POSTGRES_PASSWORD: docker-ready
+  metabase:
+    MB_DB_TYPE: postgres
+    MB_DB_DBNAME: docker-ready
+    MB_DB_PORT: 5432
+    MB_DB_USER: docker-ready
+    MB_DB_PASS: docker-ready
+    MB_DB_HOST: postgres
